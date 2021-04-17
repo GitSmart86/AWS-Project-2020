@@ -1,0 +1,28 @@
+{% extends "atc/airport_base.html" %}
+
+{% block title %}
+    Airports
+{% endblock %}
+
+{% block content %}
+    <h1>Airports</h1>
+    {% if request.user.is_superuser %}
+    <h2><a class="btn btn-success" href={% url "atc:airport_create" %}>Create new Airport</a></h2>
+    {% endif %}
+    <table class="table table-striped">
+    {% for airport in airport_list %}
+        <tr>
+            <td><a href={% url "atc:airport_detail" airport.pk %}>{{ airport.name }}</a></td>
+            <td><a>{{ airport.x }}</a></td>
+            <td><a>{{ airport.y }}</a></td>
+            {% if request.user.is_superuser %}
+            <td><a href={% url "atc:airport_update" airport.pk %}>Update</a></td>
+            <td><form style="display:inline;" action={% url "atc:airport_delete" airport.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ airport }}?')">{% csrf_token %}<input class="btn btn-danger" type="submit" value="Delete" /></form></td>
+            {% endif %}
+        </tr>
+    {% empty %}
+        <li>No Airports yet.</li>
+    {% endfor %}
+    </table>
+{% endblock %}
+

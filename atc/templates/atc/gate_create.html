@@ -1,0 +1,18 @@
+{% extends "atc/gate_base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Create Gate
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "atc:gate_list" %}>Gate</a></h1>
+<h2>Create Gate</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form | crispy }}
+    <input class="btn btn-primary" type="submit" value="Create" />
+</form>
+<a href={% url "atc:gate_list" %}>Cancel</a>
+{% endblock %}

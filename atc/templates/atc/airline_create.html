@@ -1,0 +1,18 @@
+{% extends "atc/airline_base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Create Airline
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "atc:airline_list" %}>Airline</a></h1>
+<h2>Create Airline</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form | crispy }}
+    <input class="btn btn-primary" type="submit" value="Create" />
+</form>
+<a href={% url "atc:airline_list" %}>Cancel</a>
+{% endblock %}

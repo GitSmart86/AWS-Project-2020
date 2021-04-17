@@ -1,0 +1,17 @@
+{% extends "atc/gate_base.html" %}
+
+{% block title %}
+    {{ gate }}
+{% endblock %}
+
+{% block content %}
+    <h1><a href={% url "atc:gate_list" %}>Gate</a></h1>
+    <h2>{{ gate }}
+    {% if request.user.is_superuser %}
+    | <a href={% url "atc:gate_update" gate.pk %}>Update</a> | 
+    <form style="display:inline;" action={% url "atc:gate_delete" gate.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ gate }}?')">{% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete" />
+    </form>
+    {% endif %}
+    </h2>
+{% endblock %}

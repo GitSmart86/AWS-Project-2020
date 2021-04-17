@@ -1,0 +1,19 @@
+{% extends "atc/plane_base.html" %}
+
+{% block title %}
+    {{ plane }}
+{% endblock %}
+
+{% block content %}
+    <h1><a href={% url "atc:plane_list" %}>Plane</a></h1>
+    <h2>{{ plane }}
+    {% if request.user.is_staff %}
+    | <a href={% url "atc:plane_update" plane.pk %}>Update</a>
+    {% endif %}
+    {% if request.user.is_superuser %} | 
+    <form style="display:inline;" action={% url "atc:plane_delete" plane.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ plane }}?')">{% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete" />
+    </form>
+    {% endif %}
+    </h2>
+{% endblock %}

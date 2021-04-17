@@ -1,0 +1,21 @@
+{% extends "atc/plane_base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Update {{ plane }}
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "atc:plane_list" %}>Plane</a></h1>
+<h2>Update {{ plane }}</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form | crispy }}
+    <input class="btn btn-primary" type="submit" value="Update" />
+</form>
+<a href={% url "atc:plane_detail" plane.pk %}>Cancel</a>
+<form style="display:inline;" action={% url "atc:plane_delete" plane.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ plane }}?')">{% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete" />
+</form>
+{% endblock %}

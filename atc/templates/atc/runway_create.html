@@ -1,0 +1,18 @@
+{% extends "atc/runway_base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Create Runway
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "atc:runway_list" %}>Runway</a></h1>
+<h2>Create Runway</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form | crispy }}
+    <input class="btn btn-primary" type="submit" value="Create" />
+</form>
+<a href={% url "atc:runway_list" %}>Cancel</a>
+{% endblock %}

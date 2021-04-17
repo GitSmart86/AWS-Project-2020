@@ -1,0 +1,17 @@
+{% extends "atc/airport_base.html" %}
+
+{% block title %}
+    Delete {{ airport }}
+{% endblock %}
+
+{% block content %}
+<h1>Delete {{ airport }}</h1>
+
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete {{ airport }}?</p>
+    <input type="submit" value="Confirm" />
+</form>
+
+<a href={% url "atc:airport_detail" airport.pk %}>Cancel</a>
+
+{% endblock %}

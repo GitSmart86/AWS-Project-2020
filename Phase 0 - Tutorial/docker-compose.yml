@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  postgres:
+    image: 'postgres:11'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+  web:
+    build: .
+    environment: 
+        DBHOST: postgres
+        DBPORT: 5432
+        DBNAME: todo
+        PGUSER: postgres
+        PGPASS: postgres
+    ports: 
+        - 8080:8000
+    depends_on:
+        - postgres
+volumes:
+  postgres:

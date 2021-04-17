@@ -1,0 +1,17 @@
+{% extends "atc/airport_base.html" %}
+
+{% block title %}
+    {{ airport }}
+{% endblock %}
+
+{% block content %}
+    <h1><a href={% url "atc:airport_list" %}>Airport</a></h1>
+    <h2>{{ airport }}
+    {% if request.user.is_superuser %}
+    | <a href={% url "atc:airport_update" airport.pk %}>Update</a> | 
+    <form style="display:inline;" action={% url "atc:airport_delete" airport.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ airport }}?')">{% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete" />
+    {% endif %}
+    </form>
+    </h2>
+{% endblock %}

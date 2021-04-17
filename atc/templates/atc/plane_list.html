@@ -1,0 +1,42 @@
+{% extends "atc/plane_base.html" %}
+
+{% block title %}
+    Planes
+{% endblock %}
+
+{% block content %}
+    <h1>Planes</h1>
+    {% if request.user.is_superuser %}
+    <h2><a class="btn btn-success" href={% url "atc:plane_create" %}>Create new Plane</a></h2>
+    {% endif %}
+    <table class="table table-striped">
+    {% for plane in plane_list %}
+        <tr>
+            <td><a href={% url "atc:plane_detail" plane.pk %}>{{ plane.identifier }}</a></td>
+            <td><a>{{ plane.size }}</a></td>
+            <td><a>{{ plane.currentPassengerCount }}</a></td>
+            <td><a>{{ plane.maxPassengerCount }}</a></td>
+            <td><a>{{ plane.airline }}</a></td>
+            <td><a>{{ plane.gate }}</a></td>
+            <td><a>{{ plane.runway }}</a></td>
+            <td><a>{{ plane.take_off_airport }}</a></td>
+            <td><a>{{ plane.land_airport }}</a></td>
+            <td><a>{{ plane.heading }}</a></td>
+            <td><a>{{ plane.speed }}</a></td>
+            <td><a>{{ plane.take_off_time }}</a></td>
+            <td><a>{{ plane.landing_time }}</a></td>
+            <td><a>{{ plane.arrive_at_gate_time }}</a></td>
+            <td><a>{{ plane.arrive_at_runway_time }}</a></td>
+            {% if request.user.is_staff %}
+            <td><a href={% url "atc:plane_update" plane.pk %}>Update</a></td>
+            {% endif %}
+            {% if request.user.is_superuser %}
+            <td><form style="display:inline;" action={% url "atc:plane_delete" plane.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ plane }}?')">{% csrf_token %}<input class="btn btn-danger" type="submit" value="Delete" /></form></td>
+            {% endif %}
+        </tr>
+    {% empty %}
+        <li>No Planes yet.</li>
+    {% endfor %}
+    </table>
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends "atc/airline_base.html" %}
+
+{% block title %}
+    Airlines
+{% endblock %}
+
+{% block content %}
+    <h1>Airlines</h1>
+    {% if request.user.is_superuser %}
+    <h2><a class="btn btn-success" href={% url "atc:airline_create" %}>Create new Airline</a></h2>
+    {% endif %}
+    <table class="table table-striped">
+    {% for airline in airline_list %}
+        <tr>
+            <td><a href={% url "atc:airline_detail" airline.pk %}>{{ airline }}</a></td>
+            {% if request.user.is_superuser %}
+            <td><a href={% url "atc:airline_update" airline.pk %}>Update</a></td>
+            <td><form style="display:inline;" action={% url "atc:airline_delete" airline.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ airline }}?')">{% csrf_token %}<input class="btn btn-danger" type="submit" value="Delete" /></form></td>
+            {% endif %}
+        </tr>
+    {% empty %}
+        <li>No Airlines yet.</li>
+    {% endfor %}
+    </table>
+{% endblock %}
+

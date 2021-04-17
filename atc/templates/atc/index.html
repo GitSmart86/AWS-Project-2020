@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="float-right">
+        <a href="{% url 'atc_create' %}" class="btn btn-success">New Gate</a>
+    </div>
+    <div class="clearfix"></div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th id="edit">Edit</th>
+                <th id="description">Description</th>
+                <th id="done">Done</th>
+                <th id="delete">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for atc in object_list %}
+                <tr>
+                    <td><a href="{% url 'atc_edit' atc.id %}" class="btn btn-primary">Edit</a></td>
+                    <td>{{ atc.description }}</td>
+                    <td>{{ atc.done }}</td>
+                    <td><a href="{% url 'atc_delete' atc.id %}" class="btn btn-danger">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "atc/airport_base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Update {{ airport }}
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "atc:airport_list" %}>Airport</a></h1>
+<h2>Update {{ airport }}</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form | crispy }}
+    <input class="btn btn-primary" type="submit" value="Update" />
+</form>
+<a href={% url "atc:airport_detail" airport.pk %}>Cancel</a>
+<form style="display:inline;" action={% url "atc:airport_delete" airport.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ airport }}?')">{% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete" />
+</form>
+{% endblock %}
